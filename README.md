@@ -56,7 +56,7 @@ To assess the marginal effect of the **Body Mass** variable on the **Work Level*
 
 **Figure 4**: Scatter plot between **Body Mass** and **Work Level** variables. The least squares line is in red.
 
-From the graph in Figure 4, there don't seem to be systematic trends, and there doesn't seem to be a relationship between the **Body Mass** and **Work Level** variables. The non-parametric Spearman correlation index shows that there is no correlation between the two variables (\( \rho \) = -0.004054354, p-value = 0.985).
+From the graph in Figure 4, there don't seem to be systematic trends, and there doesn't seem to be a relationship between the **Body Mass** and **Work Level** variables. The non-parametric Spearman correlation index shows that there is no correlation between the two variables $\rho$ = -0.004054354, p-value = 0.985).
 
 #### Body Mass vs Heat Output
 
@@ -66,7 +66,7 @@ To evaluate the marginal effect of the **Body Mass** variable on the **Heat Outp
 
 **Figure 5**: Scatter plot between **Body Mass** and **Heat Output** variables. The least squares line is in red.
 
-From Figure 5, there doesn't seem to be any systematic trends, and there doesn't appear to be a relationship between the **Body Mass** and **Heat Output** variables. The non-parametric Spearman correlation index further confirms that there is no correlation between the two variables (\( \rho \) = 0.2611258, p-value = 0.2178).
+From Figure 5, there doesn't seem to be any systematic trends, and there doesn't appear to be a relationship between the **Body Mass** and **Heat Output** variables. The non-parametric Spearman correlation index further confirms that there is no correlation between the two variables ($\rho$ = 0.2611258, p-value = 0.2178).
 
 #### Work Level vs Heat Output
 
@@ -76,7 +76,7 @@ To assess the marginal effect of the **Work Level** variable on the **Heat Outpu
 
 **Figure 5**: Scatter plot between **Work Level** and **Heat Output** variables. The least squares line is in red.
 
-From the graph in Figure 5, a clear upward trend is observed, indicating that as the **Work Level** increases, the **Heat Output** also increases. The Spearman correlation index confirms this relationship, showing a strong positive correlation between the two variables (\( \rho \) = 0.8976, p-value < 0.001).
+From the graph in Figure 5, a clear upward trend is observed, indicating that as the **Work Level** increases, the **Heat Output** also increases. The Spearman correlation index confirms this relationship, showing a strong positive correlation between the two variables $\rho$ = 0.8976, p-value < 0.001).
 
 ---
 
@@ -88,32 +88,28 @@ In order to model the **Heat Output** (caloric consumption) as a function of **B
 
 For the first model, a multiple normal linear regression model is adapted, assuming independence between all measurements.
 
-\[
-H_i = \alpha_0 + \alpha_1 M_i + \alpha_2 W_i + \epsilon_i \quad \text{where} \quad \epsilon_i \sim N(0, \sigma^2) \text{ are independent}
-\]
+$H_i = \alpha_0 + \alpha_1 M_i + \alpha_2 W_i + \epsilon_i$ con $\epsilon_i \sim N(0, \sigma^2)$ indipendenti
 
 Where:
-- \( H_i \) represents the **Heat Output** (caloric consumption) for the \( i^{th} \) subject.
-- \( M_i \) represents the **Body Mass** (body weight) for the \( i^{th} \) subject.
-- \( W_i \) represents the **Work Level** (work intensity) for the \( i^{th} \) subject, for \( i = 1, . . . , 24 \).
-- \( \alpha = (\alpha_0, \alpha_1, \alpha_2)^T \) is the vector of unknown regression parameters.
-- \( \epsilon_i \) represents the error term.
+- $H_i$ represents the **Heat Output** (caloric consumption) for the $i^{th}$ subject.
+- $M_i$ represents the **Body Mass** (body weight) for the $i^{th}$ subject.
+- $W_i$ represents the **Work Level** (work intensity) for the $i^{th}$ subject, for $i = 1, . . . , 24$.
+- $\alpha = (\alpha_0, \alpha_1, \alpha_2)^T$ is the vector of unknown regression parameters.
+- $\epsilon_i$ represents the error term.
 
 The model fitting table is as follows:
 
 | Parameter | Estimate | SE | t value | p-value |
 |-----------|----------|----|---------|---------|
-| \( \alpha_0 \) | 28.3126 | 20.0806 | 1.410 | 0.173 |
-| \( \alpha_1 \) | 1.6965 | 0.3355 | 5.057 | 5.24e-05 *** |
-| \( \alpha_2 \) | 3.9395 | 0.1351 | 29.153 | < 2e-16 *** |
+| $\alpha_0$ | 28.3126 | 20.0806 | 1.410 | 0.173 |
+| $\alpha_1$ | 1.6965 | 0.3355 | 5.057 | 5.24e-05 *** |
+| $\alpha_2$ | 3.9395 | 0.1351 | 29.153 | < 2e-16 *** |
 
-All parameter estimates of the model, except for \( \alpha_0 \) (the intercept), are significant (with the pre-set level set at 0.05).
+All parameter estimates of the model, except for $\alpha_0$ (the intercept), are significant (with the pre-set level set at 0.05).
 
 The estimated model is therefore:
 
-\[
-H = 28.3126 + 1.6965 M + 3.9395 W
-\]
+$H = 28.3126 + 1.6965 M + 3.9395 W$
 
 - **Effect of the Body Mass variable**: Keeping the **Work Level** variable fixed at the average value of 34.04 cal/hour, the estimated **Heat Output** increases by 1.6965 cal for each unit increase (1 kg) in calories.
   
@@ -137,26 +133,24 @@ From the graph, it can be seen that the points are arranged along the bisector, 
 
 Given the curvilinear trend observed between the variable **Heat Output** and the variables **Body Mass** and **Work Level**, a non-linear regression model is considered. The proposed model is a quadratic regression model and can be formulated as:
 
-\[
-H_i = \beta_0 + \beta_1 M_i + \beta_2 W_i + \beta_3 M_i^2 + \beta_4 W_i^2 + \epsilon_i \quad \text{where} \quad \epsilon_i \sim N(0, \sigma^2) \text{ are independent}
-\]
+$H_i = \beta_0 + \beta_1 M_i +\frac{W_i}{\beta_2 + \beta_3 M_i} + \epsilon_i$ con $\epsilon_i \sim N(0, \sigma^2)$ indipendenti
 
 Where:
-- \( H_i \) is the **Heat Output** (caloric consumption) for the \( i^{th} \) subject.
-- \( M_i \) is the **Body Mass** (body weight) for the \( i^{th} \) subject.
-- \( W_i \) is the **Work Level** (work intensity) for the \( i^{th} \) subject, for \( i = 1, . . . , 24 \).
-- \( \beta = (\beta_0, \beta_1, \beta_2, \beta_3, \beta_4)^T \) is the vector of unknown regression parameters.
-- \( \epsilon_i \) represents the error term.
+- $H_i$ is the **Heat Output** (caloric consumption) for the $i^{th}$ subject.
+- $M_i$ is the **Body Mass** (body weight) for the $i^{th}$ subject.
+- $W_i$ is the **Work Level** (work intensity) for the $i^{th}$ subject, for $i = 1, . . . , 24$.
+- $\beta$ = (\beta_0, \beta_1, \beta_2, \beta_3, \beta_4)^T$ is the vector of unknown regression parameters.
+- $\epsilon_i$ represents the error term.
 
 The model fitting table is as follows:
 
 | Parameter | Estimate | SE | t value | p-value |
 |-----------|----------|----|---------|---------|
-| \( \beta_0 \) | 15.4725 | 25.0803 | 0.617 | 0.544 |
-| \( \beta_1 \) | 2.3965 | 0.6355 | 3.767 | 0.00123 *** |
-| \( \beta_2 \) | 4.7295 | 0.2356 | 20.053 | 3.00e-15 *** |
-| \( \beta_3 \) | -0.0304 | 0.0112 | -2.714 | 0.0123 * |
-| \( \beta_4 \) | -0.0451 | 0.0176 | -2.561 | 0.0184 * |
+| $\beta_0$ | 15.4725 | 25.0803 | 0.617 | 0.544 |
+| $\beta_1$ | 2.3965 | 0.6355 | 3.767 | 0.00123 *** |
+| $\beta_2$ | 4.7295 | 0.2356 | 20.053 | 3.00e-15 *** |
+| $\beta_3$ | -0.0304 | 0.0112 | -2.714 | 0.0123 * |
+| $\beta_4$ | -0.0451 | 0.0176 | -2.561 | 0.0184 * |
 
 The estimates of all the model parameters, including the quadratic terms, are significant (with the pre-set level set at 0.05).
 
@@ -188,28 +182,24 @@ The scatter plot indicates that the non-linear model provides a better fit to th
 
 As an additional model, a multiple normal linear regression model was adapted by introducing an interaction term.
 
-\[
-H_i = \gamma_0 + \gamma_1 M_i + \gamma_2 W_i + \gamma_3 M_i W_i + \epsilon_i \quad \text{where} \quad \epsilon_i \sim N(0, \sigma^2) \text{ are independent}
-\]
+$H_i = \gamma_0 + \gamma_1 M_i + \gamma_2 W_i + \gamma_3 M_i W_i + \epsilon_i$ where $\epsilon_i \sim N(0, \sigma^2)$ are independent
 
-Where \(H_i\) represents the **Heat Output** (caloric consumption) for the *i-th* subject, \(M_i\) represents the **Body Mass** (body mass) for the *i-th* subject, and \(W_i\) represents the **Work Level** (work intensity) for the *i-th* subject, for \(i = 1, . . . , 24\). \(\gamma = (\gamma_0 \gamma_1 \gamma_2 \gamma_3)^T\) is the vector of unknown regression parameters and \(\epsilon_i\) represents the error term.
+Where $H_i$ represents the **Heat Output** (caloric consumption) for the *i-th* subject, $M_i$ represents the **Body Mass** (body mass) for the *i-th* subject, and $W_i$ represents the **Work Level** (work intensity) for the *i-th* subject, for $i = 1, . . . , 24$. $\gamma = (\gamma_0 \gamma_1 \gamma_2 \gamma_3)^T$ is the vector of unknown regression parameters and $\epsilon_i$ represents the error term.
 
 The model fit table is as follows:
 
 | Parameter | Estimate  | SE       | t value | p-value          |
 |-----------|----------|----------|---------|------------------|
-| \(\gamma_0\)   | -85.74896 | 42.37416 | -2.024  | 0.05658 .       |
-| \(\gamma_1\)   | 3.66528   | 0.72758  | 5.038   | 6.30e-05 ***    |
-| \(\gamma_2\)   | 6.95045   | 1.02897  | 6.755   | 1.43e-06 ***    |
-| \(\gamma_3\)   | -0.05200  | 0.01766  | -2.945  | 0.00801 **      |
+| $\gamma_0$   | -85.74896 | 42.37416 | -2.024  | 0.05658 .       |
+| $\gamma_1$   | 3.66528   | 0.72758  | 5.038   | 6.30e-05 ***    |
+| $\gamma_2$   | 6.95045   | 1.02897  | 6.755   | 1.43e-06 ***    |
+| $\gamma_3$   | -0.05200  | 0.01766  | -2.945  | 0.00801 **      |
 
-All parameter estimates of the model, except for \(\gamma_0\) (the intercept), are significant (with a pre-set level of 0.05).
+All parameter estimates of the model, except for $\gamma_0$ (the intercept), are significant (with a pre-set level of 0.05).
 
 The estimated model is therefore:
 
-\[
-H = -85.74896 + 3.66528 M + 6.95045 W -0.05200 M W
-\]
+$H = -85.74896 + 3.66528 M + 6.95045 W -0.05200 M W$
 
 - **Effect of the Body Mass variable:** With the **Work Level** variable fixed at the average value, equal to 34.04 cal/hour, the estimated **Heat Output** increases by 1.8952 cal for each unit increase (1 kg) of cal.
 - **Effect of the Work Level variable:** With the **Body Mass** variable fixed at the average value, equal to 57.54 kg, the estimated **Heat Output** increases by 3.95837 cal for each unit increase (1 cal/hour) of cal.
