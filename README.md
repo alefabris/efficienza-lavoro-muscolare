@@ -88,7 +88,7 @@ In order to model the **Heat Output** (caloric consumption) as a function of **B
 
 For the first model, a multiple normal linear regression model is adapted, assuming independence between all measurements.
 
-$H_i = \alpha_0 + \alpha_1 M_i + \alpha_2 W_i + \epsilon_i$ con $\epsilon_i \sim N(0, \sigma^2)$ indipendenti
+$H_i = \alpha_0 + \alpha_1 M_i + \alpha_2 W_i + \epsilon_i$ where $\epsilon_i \sim N(0, \sigma^2)$ are independent
 
 Where:
 - $H_i$ represents the **Heat Output** (caloric consumption) for the $i^{th}$ subject.
@@ -130,53 +130,41 @@ To evaluate the goodness of fit of the estimated model, we can compare the obser
 From the graph, it can be seen that the points are arranged along the bisector, indicating a good fit of the model to the data. In fact, no systematic underestimates and overestimates are observed.
 
 ### Non-linear Model
+For the second model, a non-linear regression model in the parameters is adapted. The theoretical model proposed by Glazebrook and Dye [^3^] is taken as a reference.
 
-Given the curvilinear trend observed between the variable **Heat Output** and the variables **Body Mass** and **Work Level**, a non-linear regression model is considered. The proposed model is a quadratic regression model and can be formulated as:
+$H_i = \beta_0 + \beta_1 M_i +\frac{W_i}{\beta_2 + \beta_3 M_i} + \epsilon_i$ where $\epsilon_i \sim N(0, \sigma^2)$ are independent
 
-$H_i = \beta_0 + \beta_1 M_i +\frac{W_i}{\beta_2 + \beta_3 M_i} + \epsilon_i$ con $\epsilon_i \sim N(0, \sigma^2)$ indipendenti
+where $H_i$ represents the **Heat Output** (_caloric consumption_) for the _i-th_ subject, $M_i$ represents the **Body Mass** (_body mass_) for the _i-th_ subject and $W_i$ represents the **Work Level** (_work intensity_) for the _i-th_ subject, for $i = 1, \dots, 24$. $\beta = \beta_0 \beta_1 \beta_2 \beta_3)^T$ is the vector of unknown regression parameters and $\epsilon_i$ represents the error term.
+The model fitting table is:
 
-Where:
-- $H_i$ is the **Heat Output** (caloric consumption) for the $i^{th}$ subject.
-- $M_i$ is the **Body Mass** (body weight) for the $i^{th}$ subject.
-- $W_i$ is the **Work Level** (work intensity) for the $i^{th}$ subject, for $i = 1, . . . , 24$.
-- $\beta$ = (\beta_0, \beta_1, \beta_2, \beta_3, \beta_4)^T$ is the vector of unknown regression parameters.
-- $\epsilon_i$ represents the error term.
+| Parameter | Estimate      | SE      | t value | p-value           |
+|:---------:|:-------------:|:-------:|:-------:|:-----------------:|
+| $\beta_0$   | -117.0967     | 33.37   | -3.509  | 0.00221 **       |
+| $\beta_1$   | 4.221904      | 0.5755  | 7.336   | 4.33e-07 ***     |
+| $\beta_2$   | 0.03119462    | 0.04104 | 0.760   | 0.45608          |
+| $\beta_3$   | 0.003925117   | 0.000758| 5.178   | 4.57e-05 ***     |
 
-The model fitting table is as follows:
+It is observed that the estimate of the parameter $\beta_2$ is not significant (compared to the pre-set level of 0.05).
+The estimated model is therefore:
 
-| Parameter | Estimate | SE | t value | p-value |
-|-----------|----------|----|---------|---------|
-| $\beta_0$ | 15.4725 | 25.0803 | 0.617 | 0.544 |
-| $\beta_1$ | 2.3965 | 0.6355 | 3.767 | 0.00123 *** |
-| $\beta_2$ | 4.7295 | 0.2356 | 20.053 | 3.00e-15 *** |
-| $\beta_3$ | -0.0304 | 0.0112 | -2.714 | 0.0123 * |
-| $\beta_4$ | -0.0451 | 0.0176 | -2.561 | 0.0184 * |
+$H = -117.0967 + 4.221904 M + \frac{W}{0.03119462+0.003925117 M}$
 
-The estimates of all the model parameters, including the quadratic terms, are significant (with the pre-set level set at 0.05).
+- **Effect of the Body Mass variable**: fixing the **Work Level** variable with the average value, which is 34.04 _cal/hour_, the estimated caloric consumption is nonlinear as body mass varies and for a fixed work intensity.
+- **Effect of the Work Level variable**: fixing the **Body Mass** variable with the average value, which is 57.54 _kg_, the estimated caloric consumption (**Heat Output**) increases by 3.890356 _cal_ for each unit increase (1 _cal/hour_) of _cal_.
 
-The estimated model is:
+![Analysis of the residuals of the non-linear model](./plots/fit2.png)
 
-\[
-H = 15.4725 + 2.3965 M + 4.7295 W - 0.0304 M^2 - 0.0451 W^2
-\]
+**Figure 9**: Analysis of the residuals of the non-linear model.
 
-- **Effect of the Body Mass variable**: For a fixed **Work Level** variable, the estimated **Heat Output** varies according to the value of the **Body Mass** variable. The presence of the quadratic term indicates a curvilinear relationship.
+Both the quantile-quantile diagram (Figure 9 on the left) and the Shapiro-Wilk normality test (W = 0.92441, p-value = 0.07316) confirm the hypothesis of normality for the studentized residuals of the estimated model. The three values in the upper tail that deviate from this line therefore do not lead to the rejection of normality. The plot of the studentized residuals against the estimated values (Figure 9 on the right) shows no systematic trends, so the homoscedasticity assumption is not rejected.
 
-- **Effect of the Work Level variable**: Similarly, for a fixed **Body Mass** variable, the estimated **Heat Output** changes with the **Work Level** variable, again indicating a curvilinear relationship.
+To assess the goodness of fit of the estimated model, we can compare the observed values of the **Heat Output** variable with the values estimated with the model (Figure 10).
 
-![Residual Analysis of Non-linear Regression Model](./plots/fit2.png)
+![Scatter diagram between the observed values of the variable measuring the **Heat Output** and the values estimated with the multiple normal linear model. The bisector is in red and dashed.](./plots/fit2_val.png)
 
-**Figure 9**: Residual analysis of the non-linear regression model.
+**Figure 10**: Scatter diagram between the observed values of the variable measuring the **Heat Output** and the values estimated with the multiple normal linear model. The bisector is in red and dashed.
 
-Both the quantile-quantile plot (Figure 9 on the left) and the Shapiro-Wilk normality test (W = 0.97312, p-value = 0.5441) confirm the normality hypothesis for the studentized residuals of the estimated model. The graph of the studentized residuals relative to the estimated values (Figure 9 on the right) does not show systematic trends, indicating the homoscedasticity hypothesis is not rejected.
-
-The goodness of fit of the estimated model can be evaluated by comparing the observed values of the **Heat Output** variable to the values estimated with the model (Figure 10).
-
-![Observed vs Estimated Values for Non-linear Model](./plots/fit2_val.png)
-
-**Figure 10**: Scatter plot between the observed values of the **Heat Output** variable and the values estimated with the non-linear regression model. The bisector is in dashed red.
-
-The scatter plot indicates that the non-linear model provides a better fit to the data than the linear model, capturing the curvilinear relationships more accurately.
+From the graph, it is noted that the points are arranged along the bisector, indicating a good fit of the model to the data. In fact, no systematic underestimates and overestimates are noted.
 
 ### Further Models
 
