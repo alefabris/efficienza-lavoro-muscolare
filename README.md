@@ -130,7 +130,7 @@ To evaluate the goodness of fit of the estimated model, we can compare the obser
 From the graph, it can be seen that the points are arranged along the bisector, indicating a good fit of the model to the data. In fact, no systematic underestimates and overestimates are observed.
 
 ### Non-linear Model
-For the second model, a non-linear regression model in the parameters is adapted. The theoretical model proposed by Glazebrook and Dye [^3^] is taken as a reference.
+For the second model, a non-linear regression model in the parameters is adapted. The theoretical model proposed by Glazebrook and Dye [^3] is taken as a reference.
 
 $H_i = \beta_0 + \beta_1 M_i +\frac{W_i}{\beta_2 + \beta_3 M_i} + \epsilon_i$ where $\epsilon_i \sim N(0, \sigma^2)$ are independent
 
